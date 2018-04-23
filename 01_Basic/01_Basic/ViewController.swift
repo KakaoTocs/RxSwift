@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     
     var shownCities = [String]()
     let allCities = ["New York", "London", "Oslo", "Warsaw", "Berlin", "Praga"]
+    let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +25,16 @@ class ViewController: UIViewController, UITableViewDataSource {
         tableView.dataSource = self
         
         searchBar
-            .rx.text.
+            .rx.text
+            .orEmpty // 옵셔널이 아니도록 만듬
+            .debounce(0.5, scheduler: MainScheduler.instance) //0.5초 기다림
+            .distinctUntilChanged() // 새로운 값이 이전의 값과 같은지 확인
+            .filter { !$0.isEmpty } // 빈 쿼리문 필터링
+            .subscribe(onNext: { [unowned self] query in // 새 값 구독
+                self.shownCities = self.allCities.filter { $0.hasPrefix(query) } // 쿼리문에 해당하는 값 필터링
+                self.tableView.reloadData() // 테이블 뷰 새로고침
+            })
+            .addDisposableTo(disposeBag)
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,7 +52,5 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         return cell
     }
-
-
 }
 
