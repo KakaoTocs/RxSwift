@@ -25,7 +25,7 @@ class RepositoriesViewController: UIViewController {
             .distinctUntilChanged()
     }
     
-    @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
+//    @IBOutlet weak var tableViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
 

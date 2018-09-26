@@ -29,7 +29,7 @@ struct RepositoryNetworkModel {
             .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .flatMapLatest { text in
                 return RxAlamofire
-                    .requestJSON(.get, "https://api.github.com/users\(text)/repos")
+                    .requestJSON(.get, "https://api.github.com/users/\(text)/repos")
                     .debug()
                     .catchError { error in
                         return Observable.never()
@@ -37,8 +37,8 @@ struct RepositoryNetworkModel {
             }
             .observeOn(ConcurrentDispatchQueueScheduler(qos: .background))
             .map { (response, json) -> [Repository] in
-                if let repos = Mapper<Repository>().map(JSONObject: json) {
-                    return [repos]
+                if let repos = Mapper<Repository>().mapArray(JSONObject: json) {
+                    return repos
                 } else {
                     return []
                 }

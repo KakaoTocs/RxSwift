@@ -76,8 +76,8 @@
 			children = (
 				65BDB53B215896E8005365C6 /* AppDelegate.swift */,
 				65BDB53D215896E8005365C6 /* RepositoriesViewController.swift */,
-				6577BEBF215A5E2C00A4C118 /* Repository.swift */,
 				6577BEC1215A5F0B00A4C118 /* RepositoryNetworkModel.swift */,
+				6577BEBF215A5E2C00A4C118 /* Repository.swift */,
 				65BDB53F215896E8005365C6 /* Main.storyboard */,
 				65BDB542215896E9005365C6 /* Assets.xcassets */,
 				65BDB544215896E9005365C6 /* LaunchScreen.storyboard */,
