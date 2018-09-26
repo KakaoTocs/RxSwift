@@ -29,6 +29,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             .distinctUntilChanged()
             .filter { !$0.isEmpty }
             .subscribe(onNext: { [unowned self] query in
+                print(query)
                 self.shownCities = self.allCities.filter { $0.hasPrefix(query) }
                 self.tableView.reloadData()
             })

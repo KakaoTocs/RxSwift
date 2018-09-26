@@ -1,0 +1,6 @@
+framework module Pods_4_MultiThreading {
+  umbrella header "Pods-4_MultiThreading-umbrella.h"
+
+  export *
+  module * { export * }
+}
