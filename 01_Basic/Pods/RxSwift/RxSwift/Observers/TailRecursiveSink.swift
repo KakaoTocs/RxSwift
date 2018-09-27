@@ -21,7 +21,7 @@ class TailRecursiveSink<S: Sequence, O: ObserverType>
     , InvocableWithValueType where S.Iterator.Element: ObservableConvertibleType, S.Iterator.Element.E == O.E {
     typealias Value = TailRecursiveSinkCommand
     typealias E = O.E
-    typealias SequenceGenerator = (generator: S.Iterator, remaining: Int64?)
+    typealias SequenceGenerator = (generator: S.Iterator, remaining: IntMax?)
 
     var _generators: [SequenceGenerator] = []
     var _isDisposed = false
@@ -143,6 +143,7 @@ class TailRecursiveSink<S: Sequence, O: ObserverType>
         super.dispose()
         
         _subscription.dispose()
+        _gate.dispose()
         
         schedule(.dispose)
     }

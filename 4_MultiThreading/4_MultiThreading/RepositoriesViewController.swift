@@ -50,6 +50,7 @@ class RepositoriesViewController: UIViewController {
         
         repositoryNetworkModel
             .rxRepositories
+            .debounce(0.5)
             .drive(onNext: { repositories in
                 if repositories.count == 0 {
                     let alert = UIAlertController(title: ":(", message: "No repositories for this user.", preferredStyle: .alert)

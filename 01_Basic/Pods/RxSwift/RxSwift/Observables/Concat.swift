@@ -21,7 +21,7 @@ extension ObservableType {
     }
 }
 
-extension Observable {
+extension ObservableType {
     /**
      Concatenates all observable sequences in the given sequence, as long as the previous observable sequence terminated successfully.
 
@@ -35,8 +35,8 @@ extension Observable {
 
      - returns: An observable sequence that contains the elements of each given sequence, in sequential order.
      */
-    public static func concat<S: Sequence >(_ sequence: S) -> Observable<Element>
-        where S.Iterator.Element == Observable<Element> {
+    public static func concat<S: Sequence >(_ sequence: S) -> Observable<E>
+        where S.Iterator.Element == Observable<E> {
             return Concat(sources: sequence, count: nil)
     }
 
@@ -53,9 +53,9 @@ extension Observable {
 
      - returns: An observable sequence that contains the elements of each given sequence, in sequential order.
      */
-    public static func concat<S: Collection >(_ collection: S) -> Observable<Element>
-        where S.Iterator.Element == Observable<Element> {
-            return Concat(sources: collection, count: collection.count.toIntMax())
+    public static func concat<S: Collection >(_ collection: S) -> Observable<E>
+        where S.Iterator.Element == Observable<E> {
+            return Concat(sources: collection, count: Int64(collection.count))
     }
 
     /**
@@ -71,8 +71,8 @@ extension Observable {
 
      - returns: An observable sequence that contains the elements of each given sequence, in sequential order.
      */
-    public static func concat(_ sources: Observable<Element> ...) -> Observable<Element> {
-        return Concat(sources: sources, count: sources.count.toIntMax())
+    public static func concat(_ sources: Observable<E> ...) -> Observable<E> {
+        return Concat(sources: sources, count: Int64(sources.count))
     }
 }
 
@@ -115,9 +115,9 @@ final fileprivate class Concat<S: Sequence> : Producer<S.Iterator.Element.E> whe
     typealias Element = S.Iterator.Element.E
     
     fileprivate let _sources: S
-    fileprivate let _count: Int64?
+    fileprivate let _count: IntMax?
 
-    init(sources: S, count: Int64?) {
+    init(sources: S, count: IntMax?) {
         _sources = sources
         _count = count
     }
