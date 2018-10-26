@@ -1,0 +1,6 @@
+framework module Pods_04_ObservableSynthesis {
+  umbrella header "Pods-04_ObservableSynthesis-umbrella.h"
+
+  export *
+  module * { export * }
+}
